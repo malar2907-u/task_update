@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     );
 
     if (rows.length === 0) {
-      return NextResponse.json({ message: "User not found" }, { status: 404 });
+      return NextResponse.json({ message: "User not found", success:false }, { status: 404 });
     }
 
     const user = rows[0];
@@ -30,12 +30,12 @@ export async function POST(req: NextRequest) {
     const isPasswordValid = await bcrypt.compare(body.password, user.password);
 
     if (!isPasswordValid) {
-      return NextResponse.json({ message: "Invalid password" }, { status: 401 });
+      return NextResponse.json({ message: "Invalid password", success:false }, { status: 401 });
     }
 
-    return NextResponse.json({ message: "Login successful" }, { status: 200 });
+    return NextResponse.json({ message: "Login successful", success:true }, { status: 200 });
   } catch (error) {
     console.error("Login error:", error);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    return NextResponse.json({ message: "Internal server error", success:false }, { status: 500 });
   }
 }

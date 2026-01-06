@@ -20,7 +20,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Passwords do not match" }, { status: 400 });
     }
 
-    // Check if username already exists
     const [existingUsers]: any = await db.execute(
       `SELECT * FROM task_update WHERE userName = ?`,
       [body.userName]
@@ -36,7 +35,7 @@ export async function POST(req: NextRequest) {
       [body.userName, hashedPassword]
     );
 
-    return NextResponse.json({ message: "Signup successful" }, { status: 201 });
+    return NextResponse.json({ message: "Signup successfully",success:true }, { status: 201 });
   } catch (error) {
     console.error("Signup error:", error);
     return NextResponse.json({ message: "Internal server error" }, { status: 500 });

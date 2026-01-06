@@ -24,3 +24,14 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+.input-name {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  background-color: #f3f4f6;
+  outline: none;
+}
+
+.input:focus {
+  ring: 2px solid #3b82f6;
+}
