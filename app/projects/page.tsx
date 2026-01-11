@@ -19,6 +19,7 @@ type Project = {
   sprint_duration: number;
   estimated_hours: string;
   description: string;
+  status:string
 };
 
 type ApiResponse<T> = {
@@ -36,7 +37,7 @@ type Column = {
 
 export default function Projects() {
   const router = useRouter();
-
+const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [getAllProject, setGetAllProject] = useState<Project[]>([]);
 
   const getProjects = async () => {
@@ -67,7 +68,8 @@ export default function Projects() {
     { header: "Start Date", accessor: "start_date", isDate: true },
     { header: "End Date", accessor: "end_date", isDate: true },
     { header: "Sprint (Days)", accessor: "sprint_duration" },
-    { header: "Estimated Hours", accessor: "estimated_hours" }
+    { header: "Estimated Hours", accessor: "estimated_hours" },
+     {header: "Status", accessor:"status"}
   ];
 
   return (
@@ -84,7 +86,13 @@ export default function Projects() {
       </div>
 
       <div className="p-2">
-        <CommonTable columns={projectColumns} data={getAllProject} />
+      <CommonTable
+  columns={projectColumns}
+  data={getAllProject}
+  showCheckbox
+  selectedRows={selectedRows}
+  onSelectionChange={setSelectedRows}
+/>
       </div>
     </>
   );
